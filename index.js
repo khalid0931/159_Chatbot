@@ -12,3 +12,13 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
     res.redirect('/index.html');
 });
+
+app.post('/api/chat', async (req, res) => {
+    try {
+        const { messages } = req.body;
+
+        if (!messages || !Array.isArray(messages)) {
+            return res.status(400).json({
+                error: 'Messages harus berupa array'
+            });
+        }
